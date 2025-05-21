@@ -8,17 +8,15 @@ const ArticleList = (props) => {
   useEffect(() => {
     getArticles()
       .then((res) => {
-        console.log(res)
         setArticles(res);
       })
       .catch((err) => {
-        console.log(err)
         props.setError(true);
       });
   }, []);
   return (
     <div>
-      <h3 className="Header">Articles</h3>
+      <h3 className="Header-Text">Articles</h3>
       <ul className="Article-List">
         {articles.map((article) => (
           <ArticleCard key={article.title} article={article} />

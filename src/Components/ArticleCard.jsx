@@ -1,4 +1,4 @@
-// import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import '../Styles.css';
 
 const ArticleCard = ({ article }) => {
@@ -9,6 +9,7 @@ const ArticleCard = ({ article }) => {
       <h3>{article.author}</h3>
       <h3>{article.created_at}</h3>
       <h3>{article.votes}</h3>
+      <Link to={`/articles/${article.article_id}`} className = "pageLink">Read Here</Link>
     </div>
   );
 };
