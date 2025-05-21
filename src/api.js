@@ -15,3 +15,9 @@ export const getArticleById = (id) => {
     return res.data;
   });
 }
+
+export const getCommentsById = (id) => {
+  return northcodersNewsApi.get(`/articles/${id}/comments`).then((res) => {
+    return res.data;
+  });
+}
