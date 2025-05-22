@@ -16,8 +16,18 @@ export const getArticleById = (id) => {
   });
 }
 
+export const getArticleVotesById = (id) => {
+  return northcodersNewsApi.get(`/articles/${id}`).then((res) => {
+    return res.data.votes;
+  });
+}
+
 export const getCommentsById = (id) => {
   return northcodersNewsApi.get(`/articles/${id}/comments`).then((res) => {
     return res.data.comments;
   });
+}
+
+export const patchArticleVotesById = (id) => {
+  return northcodersNewsApi.patch(`/articles/${id}`, { addedVotes: 1 })
 }
