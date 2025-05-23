@@ -11,25 +11,37 @@ const ArticlePage = (props) => {
   const { article_id } = useParams();
 
   useEffect(() => {
+    props.setLoading(true);
     getArticleById(article_id)
       .then((article) => {
         setArticleData(article);
       })
       .catch((err) => {
         props.setError(true);
+      })
+      .finally(() => {
+        props.setLoading(false);
       });
   }, []);
 
-  return (
-    <div className="Article-Page">
-      <h3 className="Header-Text">{articleData.title}</h3>
-      <img src={articleData.article_img_url}></img>
-      <p>Posted: {articleData.created_at}</p>
-      <p className="Article-Body">{articleData.body}</p>
-      <VoteButton articleId={article_id} error={props.error} setError={props.setError}/>
-      <CommentList id={article_id} />
-    </div>
-  );
+  if (props.isLoading) {
+    return <h2>Loading...</h2>;
+  } else {
+    return (
+      <div className="Article-Page">
+        <h3 className="Header-Text">{articleData.title}</h3>
+        <img src={articleData.article_img_url}></img>
+        <p>Posted: {articleData.created_at}</p>
+        <p className="Article-Body">{articleData.body}</p>
+        <VoteButton
+          articleId={article_id}
+          error={props.error}
+          setError={props.setError}
+        />
+        <CommentList id={article_id}/>
+      </div>
+    );
+  }
 };
 
 export default ArticlePage;
