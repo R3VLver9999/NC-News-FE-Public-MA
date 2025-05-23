@@ -10,6 +10,12 @@ export const getArticles = () => {
   });
 };
 
+export const getUsers = () => {
+  return northcodersNewsApi.get("/users").then((res) => {
+    return res.data.users;
+  });
+}
+
 export const getArticleById = (id) => {
   return northcodersNewsApi.get(`/articles/${id}`).then((res) => {
     return res.data;
@@ -30,4 +36,8 @@ export const getCommentsById = (id) => {
 
 export const patchArticleVotesById = (id) => {
   return northcodersNewsApi.patch(`/articles/${id}`, { addedVotes: 1 })
+}
+
+export const postCommentToArticle = (id, commentData) => {
+  return northcodersNewsApi.post(`/articles/${id}/comments`, commentData)
 }
