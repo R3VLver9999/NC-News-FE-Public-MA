@@ -16,21 +16,18 @@ const CommentPostBox = (props) => {
     setInput(value);
   };
 
-  console.log("Username:", loggedInUser.username);
-
   const handleSubmit = (event) => {
     event.preventDefault();
     setCommentLoading(true);
+    props.appendComment({body: input, author: loggedInUser.username})
     postCommentToArticle(article_id, {
       body: input,
       username: loggedInUser.username,
     })
       .then((res) => {
-        console.log("Comment Posted");
-        props.setReload(true)
       })
       .catch((err) => {
-        console.log(err);
+        props.filterComment(props.comments[props.comments.length - 1])
         setCommentError(true);
       })
       .finally(() => {

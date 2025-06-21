@@ -10,9 +10,21 @@ export const getArticles = () => {
   });
 };
 
+export const getArticlesByQuery = (query, order, topic) => {
+  return northcodersNewsApi.get(`/articles?${query}${order}${topic}`).then((res) => {
+    return res.data.articles;
+  });
+};
+
 export const getUsers = () => {
   return northcodersNewsApi.get("/users").then((res) => {
     return res.data.users;
+  });
+}
+
+export const getTopics = () => {
+  return northcodersNewsApi.get("/topics").then((res) => {
+    return res.data.topics;
   });
 }
 
@@ -40,4 +52,8 @@ export const patchArticleVotesById = (id) => {
 
 export const postCommentToArticle = (id, commentData) => {
   return northcodersNewsApi.post(`/articles/${id}/comments`, commentData)
+}
+
+export const deleteCommentById = (id) => {
+  return northcodersNewsApi.delete(`/comments/${id}`)
 }
