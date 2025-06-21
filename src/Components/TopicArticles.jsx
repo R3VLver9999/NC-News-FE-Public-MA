@@ -1,14 +1,15 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router";
-import { getArticles } from "../api.js";
+import { useParams } from "react-router-dom";
+import { getArticlesByQuery } from "../api.js";
 import ArticleCard from "./ArticleCard.jsx";
 import "../Styles.css";
 
-const ArticleList = (props) => {
+const TopicArticles = (props) => {
   const [articles, setArticles] = useState([]);
+  const { topic } = useParams();
   useEffect(() => {
     props.setLoading(true)
-    getArticles()
+    getArticlesByQuery(`sort_by=article_id`, `&order=ASC`, `&topic=${topic}`)
       .then((res) => {
         setArticles(res);
       })
@@ -25,7 +26,7 @@ const ArticleList = (props) => {
   } else {
     return (
       <div>
-        <h3 className="Header-Text">Articles</h3>
+        <h3 className="Header-Text">{`${topic}`.charAt(0).toUpperCase() + `${topic}`.slice(1)} Articles</h3>
         <ul className="Article-List">
           {articles.map((article) => (
             <ArticleCard key={article.title} article={article} />
@@ -36,4 +37,4 @@ const ArticleList = (props) => {
   }
 };
 
-export default ArticleList;
+export default TopicArticles;
